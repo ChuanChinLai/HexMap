@@ -8,15 +8,19 @@ public class HexGrid : MonoBehaviour
     public int width = 6;
     public int height = 6;
 
+    public Color defaultColor = Color.black;
+
     public HexCell cellPrefab;
     public Text cellLabelPrefab;
 
     Canvas m_Canvas;
+    HexMesh m_HexMesh;
     HexCell[] m_Cells;
 
     void Awake()
     {
         m_Canvas = GetComponentInChildren<Canvas>();
+        m_HexMesh = GetComponentInChildren<HexMesh>(); 
 
         m_Cells = new HexCell[height * width];
 
@@ -33,14 +37,14 @@ public class HexGrid : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-		
-	}
+        m_HexMesh.Triangulate(m_Cells);
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-		
-	}
+
+    }
 
     void CreateCell(int x, int z, int i)
     {
@@ -52,10 +56,24 @@ public class HexGrid : MonoBehaviour
         HexCell cell = m_Cells[i] = Instantiate<HexCell>(cellPrefab);
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
+        cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
+        cell.color = defaultColor;
 
         Text label = Instantiate<Text>(cellLabelPrefab);
         label.rectTransform.SetParent(m_Canvas.transform, false);
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
-        label.text = x.ToString() + "\n" + z.ToString();
+        label.text = cell.coordinates.ToStringOnSeparateLines();
+    }
+
+    public void ColorCell(Vector3 position, Color color)
+    {
+        position = transform.InverseTransformPoint(position);
+        HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+        Debug.Log("touched at " + coordinates.ToString());
+
+        int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
+        HexCell cell = m_Cells[index];
+        cell.color = color;
+        m_HexMesh.Triangulate(m_Cells);
     }
 }
