@@ -68,8 +68,6 @@ public struct HexCoordinates
 
         if (iX + iY + iZ != 0)
         {
-            Debug.LogWarning("rounding error!");
-
             float dX = Mathf.Abs(x - iX);
             float dY = Mathf.Abs(y - iY);
             float dZ = Mathf.Abs(-x - y - iZ);
