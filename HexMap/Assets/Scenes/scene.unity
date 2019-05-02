@@ -820,15 +820,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 840431171}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e37c3acfb8c2f2145952fd5771f33d13, type: 3}
+  m_Script: {fileID: 11500000, guid: 414a0fc06528949a0baff4f719b04a4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 6
-  height: 6
+  chunkCountX: 4
+  chunkCountZ: 3
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   cellPrefab: {fileID: 114654333206714056, guid: eaf8e1d025281954ba2e5321af970c7d,
     type: 2}
   cellLabelPrefab: {fileID: 114610931187769880, guid: f6d9a9a05db650f4ab36cfe148de65fc,
+    type: 2}
+  chunkPrefab: {fileID: 114255188436414124, guid: f33422c937840f947a38312d63cb34b2,
     type: 2}
   noiseSource: {fileID: 2800000, guid: 38701cdeb1fb9427cbb585f917aa59cb, type: 3}
 --- !u!4 &840431173
@@ -1788,8 +1790,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1642564371}
   - component: {fileID: 1642564374}
-  - component: {fileID: 1642564373}
   - component: {fileID: 1642564372}
+  - component: {fileID: 1642564373}
   m_Layer: 0
   m_Name: Hex Mesh
   m_TagString: Untagged
